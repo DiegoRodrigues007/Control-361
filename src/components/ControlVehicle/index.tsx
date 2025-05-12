@@ -21,7 +21,7 @@ export const ControlVehicle: React.FC<ControlVehicleProps> = ({
   <header className="bg-[#000f17]" aria-label="Controles de veículos">
     <div className="max-w-[1800px] mx-auto flex flex-wrap items-center justify-between px-4 sm:px-0 py-4 border-b border-[#002d44]">
       <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-        <span className="font-medium text-gray-200 whitespace-nowrap">
+        <span className="font-medium text-gray-200 whitespace-nowrap mr-4 md:mr-48">Lista
           Lista
         </span>
         {(["rastreado", "outros"] as TipoFiltro[]).map((option) => (

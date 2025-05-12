@@ -63,7 +63,9 @@ describe("useMapaPoll", () => {
 describe("useVeiculosInfinite", () => {
   it("deve suportar paginação infinita com fetchNextPage se existir próxima página", async () => {
     const vehiclesPage1: LocationVehicle[] = [locationVehicleMock];
-    const vehiclesPage2: LocationVehicle[] = [{ ...locationVehicleMock, id: "2" }];
+    const vehiclesPage2: LocationVehicle[] = [
+      { ...locationVehicleMock, id: "2" },
+    ];
 
     const response1 = mockVeiculosListResponse(vehiclesPage1, {
       ...baseFetchParams,
@@ -80,24 +82,19 @@ describe("useVeiculosInfinite", () => {
       .mockResolvedValueOnce(response1)
       .mockResolvedValueOnce(response2);
 
-    const { result } = renderHook(
-      () => useVeiculosInfinite(baseFetchParams),
-      { wrapper: createQueryClientWrapper() }
-    );
+    const { result } = renderHook(() => useVeiculosInfinite(baseFetchParams), {
+      wrapper: createQueryClientWrapper(),
+    });
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    // Verifica primeira página
     expect(result.current.data?.pages[0]).toEqual(response1);
 
-    // Se houver próxima página, dispara fetchNextPage e valida segunda página
     if (result.current.hasNextPage) {
       act(() => {
         result.current.fetchNextPage();
       });
-      await waitFor(() =>
-        expect(result.current.data?.pages).toHaveLength(2)
-      );
+      await waitFor(() => expect(result.current.data?.pages).toHaveLength(2));
       expect(result.current.data?.pages[1]).toEqual(response2);
       expect(mockedFetchVehicles).toHaveBeenCalledWith({
         ...baseFetchParams,
@@ -106,8 +103,6 @@ describe("useVeiculosInfinite", () => {
       });
     }
 
-    // Após último fetch, não deve existir próxima página
     expect(result.current.hasNextPage).toBe(false);
   });
 });
-

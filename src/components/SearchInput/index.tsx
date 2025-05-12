@@ -1,4 +1,3 @@
-// src/components/SearchInput/index.tsx
 import React from "react";
 
 interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {

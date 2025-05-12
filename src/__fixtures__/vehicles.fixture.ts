@@ -1,4 +1,9 @@
-import type { BuscarVeiculosParams, VeiculosListResponse,LocationVehicle,VeiculoTable } from '@/types/veiculos'
+import type {
+  BuscarVeiculosParams,
+  VeiculosListResponse,
+  LocationVehicle,
+  VeiculoTable,
+} from "@/types/veiculos";
 export const vehiclesMock: VeiculoTable[] = [
   {
     placa: "AAA-0001",
@@ -21,12 +26,12 @@ export const mockVeiculosListResponse = (
   params: BuscarVeiculosParams
 ): VeiculosListResponse => ({
   statusCode: 200,
-  message: 'Sucesso',
+  message: "Sucesso",
   content: {
-    vehicles: [], 
+    vehicles: [],
     locationVehicles: vehicles,
     totalPages: 1,
     page: params.page ?? 1,
     perPage: params.perPage ?? vehicles.length,
   },
-})
+});

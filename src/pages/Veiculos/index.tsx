@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { buscarVeiculos } from '@/services/veiculoService';
-import type { Veiculo as ApiVeiculo, BuscarVeiculosParams, TipoFiltro } from '@/types/veiculos';
-import { ControlVehicle } from '@/components/ControlVehicle';
-import { TabelaVeiculos } from '@/components/Table';
+import React, { useEffect, useState } from "react";
+import { buscarVeiculos } from "@/services/veiculoService";
+import type {
+  Veiculo as ApiVeiculo,
+  BuscarVeiculosParams,
+  TipoFiltro,
+} from "@/types/veiculos";
+import { ControlVehicle } from "@/components/ControlVehicle";
+import { TabelaVeiculos } from "@/components/Table";
 
 export const VeiculosPage: React.FC = () => {
-  const [filtro, setFiltro] = useState<TipoFiltro>('rastreado');
-  const [busca, setBusca] = useState('');
+  const [filtro, setFiltro] = useState<TipoFiltro>("rastreado");
+  const [busca, setBusca] = useState("");
   const [page, setPage] = useState(1);
   const perPage = 20;
 
@@ -18,7 +22,7 @@ export const VeiculosPage: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    const apiType = filtro === 'rastreado' ? 'tracked' : 'others';
+    const apiType = filtro === "rastreado" ? "tracked" : "others";
 
     const params: BuscarVeiculosParams = {
       tipo: apiType,
@@ -31,8 +35,8 @@ export const VeiculosPage: React.FC = () => {
       const response = await buscarVeiculos(params);
       setVeiculos(response.content.vehicles);
     } catch (err) {
-      console.error('Erro ao buscar veículos:', err);
-      setError('Não foi possível carregar a lista de veículos.');
+      console.error("Erro ao buscar veículos:", err);
+      setError("Não foi possível carregar a lista de veículos.");
     } finally {
       setLoading(false);
     }
@@ -46,16 +50,16 @@ export const VeiculosPage: React.FC = () => {
     <section className="min-h-screen bg-gray-900">
       <ControlVehicle
         filtro={filtro}
-        aoMudarFiltro={novo => {
+        aoMudarFiltro={(novo) => {
           setFiltro(novo);
           setPage(1);
         }}
         busca={busca}
-        aoBuscar={texto => {
+        aoBuscar={(texto) => {
           setBusca(texto);
           setPage(1);
         }}
-        aoCriarNovo={() => console.log('Criar novo veículo')}
+        aoCriarNovo={() => console.log("Criar novo veículo")}
       />
 
       <div className="max-w-screen-xl mx-auto px-6 sm:px-8 lg:px-12 py-6">
@@ -63,10 +67,10 @@ export const VeiculosPage: React.FC = () => {
         {error && <p className="text-red-500">{error}</p>}
         {!loading && !error && (
           <TabelaVeiculos
-            dados={veiculos.map(v => ({
-              placa:  v.plate,
-              frota:  v.fleet ?? '',
-              tipo:   v.type,
+            dados={veiculos.map((v) => ({
+              placa: v.plate,
+              frota: v.fleet ?? "",
+              tipo: v.type,
               modelo: v.model,
               status: v.status,
             }))}

@@ -54,7 +54,7 @@ export const Home: React.FC = () => {
         <div className="bg-[#001622] rounded-xl border border-[#002d44] overflow-hidden">
           <header
             id="titulo-mapa"
-            className="px-6 py-4 border-b border-[#002d44]"
+            className="px-6 py-4"
           >
             <h2 className="text-gray-200 font-medium">Mapa rastreador</h2>
           </header>
@@ -105,7 +105,7 @@ export const Home: React.FC = () => {
                 Carregando mais...
               </p>
             }
-            endMessage={null} 
+            endMessage={null}
           >
             <div className="overflow-x-auto">
               <TabelaVeiculos

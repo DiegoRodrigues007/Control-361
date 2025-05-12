@@ -11,4 +11,3 @@ export const locationVehicleMock: LocationVehicle = {
   lng: -40.6984616,
   createdAt: "2025-12-12T15:32:00Z",
 };
-

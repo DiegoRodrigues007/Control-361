@@ -1,23 +1,23 @@
-import { render, screen } from '@testing-library/react';
-import { TabelaVeiculos } from '../index';
-import { vehiclesMock } from '@/__fixtures__/vehicles.fixture';
+import { render, screen } from "@testing-library/react";
+import { TabelaVeiculos } from "../index";
+import { vehiclesMock } from "@/__fixtures__/vehicles.fixture";
 
-describe('<TabelaVeiculos />', () => {
-  it('deve renderizar os cabeçalhos de coluna', () => {
+describe("<TabelaVeiculos />", () => {
+  it("deve renderizar os cabeçalhos de coluna", () => {
     render(<TabelaVeiculos dados={vehiclesMock} />);
-    ['Placa','Frota','Tipo','Modelo','Status'].forEach(header => {
+    ["Placa", "Frota", "Tipo", "Modelo", "Status"].forEach((header) => {
       expect(
-        screen.getByRole('columnheader', { name: new RegExp(header, 'i') })
+        screen.getByRole("columnheader", { name: new RegExp(header, "i") })
       ).toBeInTheDocument();
     });
   });
 
-  it('deve renderizar uma linha por veículo mais o header', () => {
+  it("deve renderizar uma linha por veículo mais o header", () => {
     render(<TabelaVeiculos dados={vehiclesMock} />);
-    expect(screen.getAllByRole('row')).toHaveLength(1 + vehiclesMock.length);
+    expect(screen.getAllByRole("row")).toHaveLength(1 + vehiclesMock.length);
   });
 
-  it('deve exibir corretamente os dados de cada veículo', () => {
+  it("deve exibir corretamente os dados de cada veículo", () => {
     render(<TabelaVeiculos dados={vehiclesMock} />);
     vehiclesMock.forEach(({ placa, frota, status }) => {
       expect(screen.getByText(placa)).toBeInTheDocument();

@@ -16,13 +16,7 @@ export const TabelaVeiculos: React.FC<PropriedadesTabela> = ({ dados }) => (
             </caption>
             <thead>
               <tr className="bg-[#001622] border-b border-[#002d44] text-center">
-                {[
-                  "Placa",
-                  "Frota",
-                  "Tipo",
-                  "Modelo",
-                  "Status",
-                ].map((col) => (
+                {["Placa", "Frota", "Tipo", "Modelo", "Status"].map((col) => (
                   <th
                     key={col}
                     scope="col"
@@ -59,7 +53,6 @@ export const TabelaVeiculos: React.FC<PropriedadesTabela> = ({ dados }) => (
             </tbody>
           </table>
         </div>
-        
       </div>
     </div>
   </section>
