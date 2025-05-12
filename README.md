@@ -1,52 +1,91 @@
-# React + TypeScript + Vite
+# Control 361
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Painel de controle responsivo para rastreamento de veículos.
 
-Currently, two official plugins are available:
+## Tecnologias
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+. Frontend: React + TypeScript
 
-## Expanding the ESLint configuration
+. Estilização: Tailwind CSS
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+. Testes: Jest, React Testing Library, Cypress
+
+. CI/CD: GitHub Actions, Vercel
+
+## Estrutura de Pastas
+```js
+src/
+├── _fixtures_/      
+├── api/             
+│   └── _tests_/     
+├── assets/          
+├── components/     
+│   ├── Button/
+│   │   └── _tests_/
+│   ├── ControlVehicle/
+│   │   └── _tests_/
+│   ├── Header/
+│   ├── InfoWindowContent/
+│   │   └── _tests_/
+│   ├── Map/
+│   │   └── _tests_/
+│   ├── SearchInput/
+│   │   └── _tests_/
+│   └── Table/
+│   │   └── _tests_/
+├── hooks/
+│   │   └── _tests_/      
+├── lib/             
+├── pages/          
+│   ├── Home/
+│   │   └── _tests_/
+│   └── Veiculos/
+│   │   └── _tests_/
+├── services/        
+├── types/           
+├── App.css          
+├── App.tsx          
+├── index.css        
+├── main.tsx         
+├── setupTests.ts    
+└── vite-env.d.ts    
+```
+## 🧪 End-to-End & Integração / Cypress
 
 ```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+# abre o cypress em modo interativo (com interface)
+npm run cy:open
+# ou
+yarn cy:open
+
+# executa headless (SEM interface), útil para CI
+npm run cy:run
+# ou
+yarn cy:run
 ```
+## 🔄 CI/CD via GitHub Actions
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+O pipeline está definido em .github/workflows/ci-cd.yml e segue estes passos:
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    "react-x": reactX,
-    "react-dom": reactDom,
-  },
-  rules: {
-    ...reactX.configs["recommended-typescript"].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
-```
+---> Trigger: em push na branch main (ou manual via workflow_dispatch).
+
+---> Checkout: obtém o código atual do repositório.
+
+---> Setup Node.js: instala a versão 18 do Node.
+
+---> Install dependencies: executa npm ci.
+
+---> Lint: roda npm run lint e falha em warnings (via --max-warnings=0).
+
+---> Test: executa testes unitários e componentes (npm test).
+
+---> Build: gera o build de produção (npm run build).
+
+---> Deploy: usa o Vercel CLI para publicar (vercel deploy --prod --yes ...).
+
+## 🚀 Build & Deploy
+
+. Build: npm run build gera a pasta de produção em dist.
+
+. Deploy: feito automaticamente pela GitHub Actions em pushes na main.
